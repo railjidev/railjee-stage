@@ -2,20 +2,9 @@
 
 import Lottie from 'lottie-react';
 import { useEffect, useState } from 'react';
+import { animationCache, preloadAnimation } from '@/lib/animationCache';
 
-// Module-level cache — survives re-mounts, cleared only on full page reload
-const animationCache = new Map<string, any>();
-
-// Call this anywhere to start the fetch early (fire-and-forget)
-export function preloadAnimation(
-  animationPath = '/animation/Train Animation.lottie/a/Main Scene.json'
-) {
-  if (animationCache.has(animationPath)) return; // already cached
-  fetch(animationPath, { cache: 'force-cache' })
-    .then((r) => r.json())
-    .then((data) => animationCache.set(animationPath, data))
-    .catch(() => {});
-}
+export { preloadAnimation };
 
 interface LoadingScreenProps {
   isLoading: boolean;

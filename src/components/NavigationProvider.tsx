@@ -3,7 +3,12 @@
 import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
-import LoadingScreen, { preloadAnimation } from '@/components/LoadingScreen';
+import dynamic from 'next/dynamic';
+import { preloadAnimation } from '@/lib/animationCache';
+
+// Dynamically import LoadingScreen so lottie-react is NOT included in the
+// initial JS bundle — it is only fetched the first time a navigation starts.
+const LoadingScreen = dynamic(() => import('@/components/LoadingScreen'), { ssr: false });
 
 interface NavigationContextType {
   isNavigating: boolean;

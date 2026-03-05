@@ -3,12 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Lottie from 'lottie-react';
+import dynamic from 'next/dynamic';
 import { API_ENDPOINTS } from '@/lib/apiConfig';
 import { departmentCache } from '@/lib/departmentCache';
-import LoadingScreen from '@/components/LoadingScreen';
 import Navbar from '@/components/common/Navbar';
-import departmentAnimation from '../../../public/animation/departmentList_animation/a/Main Scene.json';
+
+const LoadingScreen = dynamic(() => import('@/components/LoadingScreen'), { ssr: false });
 
 interface Department {
   id: string;
@@ -111,11 +111,6 @@ const getDepartmentIcon = (deptId: string, iconName?: string): React.ReactNode =
     return departmentIcons.snt;
   } else if (normalizedId.includes('metro') || normalizedId.includes('dfccil')) {
     return departmentIcons.metro;
-  }
-  
-  // Log unmatched department for debugging
-  if (normalizedId) {
-    console.log('Department icon not found for:', normalizedId, '- using fallback');
   }
   
   // Fallback to civil icon
