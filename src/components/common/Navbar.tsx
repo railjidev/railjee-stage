@@ -77,7 +77,7 @@ export default function Navbar({
                 <img
                   src="/images/logo.png"
                   alt="RailJee Logo"
-                  className="h-8 sm:h-10 lg:h-12 w-auto"
+                  className="h-10 w-auto"
                 />
               </Link>
             </div>
@@ -174,8 +174,8 @@ function HomeNavbar({ isMobileMenuOpen, setIsMobileMenuOpen, ctaLabel, ctaHref }
   const resolvedCtaLabel = ctaLabel ?? 'Start Preparing';
   const resolvedCtaAction = ctaHref ? () => navigate(ctaHref) : () => navigate('/departments');
   const navItems = [
-    { name: 'Tests', href: '#exams' },
-    { name: 'Resources', href: '#features' },
+    { name: 'Tests', href: '/#exams' },
+    { name: 'Resources', href: '/#features' },
     { name: 'My Stats', href: '/stats', isRoute: true },
     { name: 'About', href: '#about' },
   ];
@@ -189,7 +189,7 @@ function HomeNavbar({ isMobileMenuOpen, setIsMobileMenuOpen, ctaLabel, ctaHref }
             <img
               src="/images/logo.png"
               alt="RailJee Logo"
-              className="h-12 sm:h-14 lg:h-14 w-auto transition-transform group-hover:scale-105"
+              className="h-10 w-auto transition-transform group-hover:scale-105"
             />
           </Link>
           

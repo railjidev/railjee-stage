@@ -199,7 +199,7 @@ export default function DepartmentHeader({
               <img
                 src="/images/logo.png"
                 alt="RailJee Logo"
-                className="h-10 sm:h-12 w-auto"
+                className="h-10 w-auto"
               />
             </Link>
           </div>

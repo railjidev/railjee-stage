@@ -14,22 +14,22 @@ export default function Navbar({ user }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { name: 'Tests', href: '#exams' },
-    { name: 'Resources', href: '#features' },
+    { name: 'Tests', href: '/#exams' },
+    { name: 'Resources', href: '/#features' },
     { name: 'Your Stats', href: '/stats', isRoute: true },
-    { name: 'About', href: '#about' },
+    { name: 'About', href: '/about' },
   ];
 
   return (
     <nav className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center h-14 sm:h-16 lg:h-20">
+        <div className="flex justify-between items-center h-14 sm:h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 group">
             <img
               src="/images/logo.png"
               alt="RailJee Logo"
-              className="h-12 sm:h-14 w-auto transition-transform group-hover:scale-105"
+              className="h-10 w-auto transition-transform group-hover:scale-105"
             />
           </Link>
           
