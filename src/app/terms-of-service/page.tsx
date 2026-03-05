@@ -78,7 +78,7 @@ export default async function TermsOfServicePage() {
                 <li>Attempt to reverse-engineer, decompile, or tamper with the platform.</li>
                 <li>Share your account credentials with others.</li>
                 <li>Use the platform for any unlawful purpose.</li>
-                <li>Interfere with the proper functioning of the platform or other users' experience.</li>
+                <li>Interfere with the proper functioning of the platform or other users&apos; experience.</li>
                 <li>Upload or transmit viruses, malware, or other harmful code.</li>
               </ul>
             </Section>
@@ -96,7 +96,7 @@ export default async function TermsOfServicePage() {
 
             {/* Section 7 */}
             <Section title="7. Disclaimer of Warranties">
-              <p>RailJee is provided on an <strong>"as is"</strong> and <strong>"as available"</strong> basis without warranties of any kind, express or implied. We do not warrant that:</p>
+              <p>RailJee is provided on an <strong>&ldquo;as is&rdquo;</strong> and <strong>&ldquo;as available&rdquo;</strong> basis without warranties of any kind, express or implied. We do not warrant that:</p>
               <ul className="list-disc pl-5 space-y-2 mt-3">
                 <li>The service will be uninterrupted or error-free.</li>
                 <li>Any specific exam results will be achieved by using this platform.</li>
@@ -124,7 +124,7 @@ export default async function TermsOfServicePage() {
 
             {/* Section 11 */}
             <Section title="11. Changes to Terms">
-              <p>We reserve the right to modify these Terms at any time. When we make changes, we will update the "Last updated" date at the top of this page. Your continued use of RailJee after any changes constitutes your acceptance of the new Terms.</p>
+              <p>We reserve the right to modify these Terms at any time. When we make changes, we will update the &ldquo;Last updated&rdquo; date at the top of this page. Your continued use of RailJee after any changes constitutes your acceptance of the new Terms.</p>
             </Section>
 
             {/* Section 12 */}

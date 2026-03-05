@@ -156,7 +156,7 @@ export default async function AboutPage() {
               RailJee was born out of the simple belief that every railway employee deserves a fair shot at career advancement. We collected authentic past papers, organized them by department, added bilingual support, and wrapped it all in a clean, exam-simulating interface.
             </p>
             <p>
-              Today, RailJee helps thousands of candidates practice with real exam papers, track their weak areas, and walk into exam halls with confidence. And it's free — because your hard work should be the only thing standing between you and your next promotion.
+              Today, RailJee helps thousands of candidates practice with real exam papers, track their weak areas, and walk into exam halls with confidence. And it&apos;s free — because your hard work should be the only thing standing between you and your next promotion.
             </p>
           </div>
         </div>

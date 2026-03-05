@@ -115,7 +115,7 @@ export default async function PrivacyPolicyPage() {
 
             {/* Section 8 */}
             <Section title="8. Changes to This Policy">
-              <p>We may update this Privacy Policy from time to time. When we do, we will update the "Last updated" date at the top. Continued use of RailJee after changes means you accept the updated policy.</p>
+              <p>We may update this Privacy Policy from time to time. When we do, we will update the &ldquo;Last updated&rdquo; date at the top. Continued use of RailJee after changes means you accept the updated policy.</p>
             </Section>
 
             {/* Section 9 */}
