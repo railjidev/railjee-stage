@@ -59,9 +59,9 @@ export default function UserMenu({ user }: UserMenuProps) {
     }
   }, [isOpen, signingOut])
 
-  function handleSignOut() {
+  async function handleSignOut() {
     setSigningOut(true)
-    supabase.auth.signOut()
+    await supabase.auth.signOut()
     window.location.href = '/'
   }
 

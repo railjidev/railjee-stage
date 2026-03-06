@@ -9,6 +9,7 @@ import { departmentCache } from '@/lib/departmentCache';
 import LoadingScreen from '@/components/LoadingScreen';
 import Navbar from '@/components/common/Navbar';
 import departmentAnimation from '../../../public/animation/departmentList_animation/a/Main Scene.json';
+import { createClient } from '@/lib/supabase/client';
 
 interface Department {
   id: string;
@@ -129,6 +130,18 @@ export default function DepartmentsPage() {
   const [departments, setDepartments] = useState<Department[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Client-side auth guard — handles stale/expired session cookies that bypass middleware
+  useEffect(() => {
+    const checkAuth = async () => {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        router.replace('/auth/signin?redirect=/departments');
+      }
+    };
+    checkAuth();
+  }, [router]);
 
   // Color gradient mapping for different icons
   const colorMapping: { [key: string]: { gradient: string; bg: string } } = {

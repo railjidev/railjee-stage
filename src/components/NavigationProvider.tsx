@@ -43,6 +43,10 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
           setIsNavigating(false);
         });
       });
+    } else if (isNavigating) {
+      // Pathname didn't change (e.g. middleware redirect back to same page);
+      // reset the loader so it doesn't get stuck.
+      setIsNavigating(false);
     }
   }, [pathname, searchParams]);
 
