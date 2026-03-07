@@ -51,7 +51,7 @@ export default function ExamQuestion({
       {/* Question Card */}
       <div className="bg-white rounded-xl sm:rounded-2xl shadow-sm overflow-hidden flex flex-col h-full">
         {/* Question Header with Flag Button - Sticky */}
-        <div className={`sticky top-0 z-10 px-3 sm:px-4 lg:px-5 py-3 sm:py-3.5 lg:py-4 text-white ${
+        <div className={`sticky top-0 z-10 px-3 sm:px-4 lg:px-5 py-4 text-white ${
           showFeedback
             ? selectedAnswer === actualCorrectAnswer
               ? 'bg-gradient-to-r from-green-500 to-emerald-500'
