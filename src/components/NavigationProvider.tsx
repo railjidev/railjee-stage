@@ -3,7 +3,12 @@
 import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
-import LoadingScreen, { preloadAnimation } from '@/components/LoadingScreen';
+import dynamic from 'next/dynamic';
+import { preloadAnimation } from '@/lib/animationCache';
+
+// Dynamically import LoadingScreen so lottie-react is NOT included in the
+// initial JS bundle — it is only fetched the first time a navigation starts.
+const LoadingScreen = dynamic(() => import('@/components/LoadingScreen'), { ssr: false });
 
 interface NavigationContextType {
   isNavigating: boolean;
@@ -26,10 +31,29 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
   const router = useRouter();
   const prevPathRef = useRef(pathname);
 
-  // Kick off animation fetches immediately so both are cached before any navigation
+  // Preload animations only on the first user interaction (pointer, touch, or key).
+  // This ensures animation JSON is never downloaded on pages where the user
+  // doesn't navigate, while still being warm in the cache before the loading
+  // screen appears.
   useEffect(() => {
-    preloadAnimation('/animation/Train Animation.lottie/a/Main Scene.json');
-    preloadAnimation('/animation/Trainbasic.lottie/a/Scene.json');
+    const preload = () => {
+      preloadAnimation('/animation/Train Animation.lottie/a/Main Scene.json');
+      preloadAnimation('/animation/Trainbasic.lottie/a/Scene.json');
+      // Remove listeners after first trigger — we only need to preload once.
+      window.removeEventListener('pointerdown', preload);
+      window.removeEventListener('touchstart', preload);
+      window.removeEventListener('keydown', preload);
+    };
+
+    window.addEventListener('pointerdown', preload, { once: true, passive: true });
+    window.addEventListener('touchstart', preload, { once: true, passive: true });
+    window.addEventListener('keydown', preload, { once: true, passive: true });
+
+    return () => {
+      window.removeEventListener('pointerdown', preload);
+      window.removeEventListener('touchstart', preload);
+      window.removeEventListener('keydown', preload);
+    };
   }, []);
 
   // When pathname changes, navigation is complete — hide loader after new page paints
