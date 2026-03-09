@@ -16,7 +16,7 @@ export default function Footer() {
               </Link>
             </div>
             <p className="text-stone-400 text-xs sm:text-sm leading-relaxed">
-              Your trusted platform for railway exam preparation. Join thousands of successful candidates.
+              Your trusted platform for railway promotional exams. Helping railway professionals prepare with confidence.
             </p>
           </div>
           
@@ -32,7 +32,7 @@ export default function Footer() {
           </div>
           
           {/* Quick Links */}
-          <div>
+          {/* <div>
             <h3 className="text-xs sm:text-sm font-semibold uppercase tracking-wider mb-3 sm:mb-6">Quick Links</h3>
             <ul className="space-y-2 sm:space-y-4 text-stone-400">
               <li><Link href="/#exams" className="hover:text-white transition-colors text-xs sm:text-sm">Practice Tests</Link></li>
@@ -40,7 +40,7 @@ export default function Footer() {
               <li><Link href="/#features" className="hover:text-white transition-colors text-xs sm:text-sm">Features</Link></li>
               <li><Link href="/#about" className="hover:text-white transition-colors text-xs sm:text-sm">About</Link></li>
             </ul>
-          </div>
+          </div> */}
           
           {/* Company */}
           <div>

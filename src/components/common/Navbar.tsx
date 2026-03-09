@@ -6,7 +6,7 @@ import { useNavigation } from '@/components/NavigationProvider';
 import { createClient } from '@/lib/supabase/client';
 import UserMenu from '@/components/common/UserMenu';
 
-export type NavbarVariant = 'home' | 'departments' | 'stats' | 'departmentDetail' | 'examResult';
+export type NavbarVariant = 'home' | 'auth' | 'departments' | 'stats' | 'departmentDetail' | 'examResult';
 
 interface NavbarProps {
   variant?: NavbarVariant;
@@ -42,6 +42,14 @@ export default function Navbar({
   // Home variant - Full navbar with navigation
   if (variant === 'home') {
     return <HomeNavbar
+      ctaLabel={ctaLabel}
+      ctaHref={ctaHref}
+    />;
+  }
+
+  // Auth variant - Minimal navbar with only logo and CTA button
+  if (variant === 'auth') {
+    return <AuthNavbar
       ctaLabel={ctaLabel}
       ctaHref={ctaHref}
     />;
@@ -164,6 +172,36 @@ export default function Navbar({
 
   // Default fallback
   return null;
+}
+
+// Auth Navbar Component - logo + CTA button only
+function AuthNavbar({ ctaLabel, ctaHref }: HomeNavbarProps) {
+  const { navigate } = useNavigation();
+  const resolvedCtaAction = ctaHref ? () => navigate(ctaHref) : undefined;
+
+  return (
+    <nav className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex justify-between items-center h-14 sm:h-16 lg:h-20">
+          <Link href="/" className="flex items-center space-x-2 group">
+            <img
+              src="/images/logo.png"
+              alt="RailJee Logo"
+              className="h-7 sm:h-10 w-auto transition-transform group-hover:scale-105"
+            />
+          </Link>
+          {ctaLabel && resolvedCtaAction && (
+            <button
+              onClick={resolvedCtaAction}
+              className="inline-flex px-4 lg:px-5 py-2 lg:py-2.5 text-xs sm:text-sm font-semibold text-white bg-orange-600 rounded-full hover:bg-orange-700 transition-all duration-300"
+            >
+              {ctaLabel}
+            </button>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
 }
 
 // Home Navbar Component

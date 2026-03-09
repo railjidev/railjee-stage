@@ -28,7 +28,7 @@ export default function Hero() {
               with Departmental Exams
             </h1>
             <p className="text-sm sm:text-base lg:text-lg text-stone-600 mb-6 sm:mb-8 leading-relaxed">
-              Master departmental exams across Civil, Mechanical, Electrical, Commercial, and more. Access authentic exam papers, bilingual content, and department-specific materials designed for railway professionals.
+              Master departmental exams across Mechanical, Personnel, Commercial, and other key departments. Access authentic exam papers, bilingual questions, and department-specific materials designed for railway professionals.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
@@ -36,7 +36,7 @@ export default function Hero() {
                 href="/departments"
                 className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-stone-900 text-white font-semibold rounded-full hover:bg-stone-800 transition-all duration-300 shadow-lg hover:shadow-xl text-sm sm:text-base text-center"
               >
-                Get started
+                Get Started
               </Link>
             </div>
 

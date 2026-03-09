@@ -64,7 +64,7 @@ export default function SignInPage() {
 
   return (
     <div className="min-h-screen bg-[#faf9f7]">
-      <Navbar variant="home" ctaLabel="Sign Up" ctaHref="/auth/signup" />
+      <Navbar variant="auth" ctaLabel="Sign Up" ctaHref="/auth/signup" />
       <div className="flex justify-center px-4 pt-8 pb-8 relative">
       {/* Decorative Elements - Railway themed */}
       <div className="hidden sm:block absolute top-20 right-10 sm:right-20 w-16 sm:w-24 h-16 sm:h-24 text-orange-500 opacity-20">

@@ -87,7 +87,7 @@ export default function SignUpPage() {
 
   return (
     <div className="min-h-screen bg-[#faf9f7]">
-      <Navbar variant="home" ctaLabel="Sign In" ctaHref="/auth/signin" />
+      <Navbar variant="auth" ctaLabel="Sign In" ctaHref="/auth/signin" />
       <div className="flex justify-center px-4 pt-8 pb-8 relative">
       {/* Decorative Elements - Railway themed */}
       <div className="hidden sm:block absolute top-20 right-10 sm:right-20 w-16 sm:w-24 h-16 sm:h-24 text-orange-500 opacity-20">
@@ -101,10 +101,10 @@ export default function SignUpPage() {
       <div className="max-w-md w-full space-y-5 sm:space-y-8 p-5 sm:p-8 bg-white rounded-2xl shadow-xl relative z-10">
         <div>
           <h2 className="text-2xl sm:text-3xl font-bold text-center text-stone-900">
-            Join Rail-Jee
+            Join Rail Jee
           </h2>
           <p className="mt-1.5 text-center text-xs sm:text-sm text-stone-600">
-            Start your railway exam preparation journey
+            Take the next step in your railway career.
           </p>
         </div>
 
