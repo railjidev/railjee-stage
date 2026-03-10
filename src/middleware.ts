@@ -40,11 +40,12 @@ export async function middleware(request: NextRequest) {
   const { data: { session } } = await supabase.auth.getSession()
   const user = session?.user ?? null
 
-  if (isProtectedRoute && !user) {
-    const redirectUrl = new URL('/auth/signin', request.url)
-    redirectUrl.searchParams.set('redirect', pathname)
-    return NextResponse.redirect(redirectUrl)
-  }
+  // TESTING: Disabled authentication protection - all pages are public
+  // if (isProtectedRoute && !user) {
+  //   const redirectUrl = new URL('/auth/signin', request.url)
+  //   redirectUrl.searchParams.set('redirect', pathname)
+  //   return NextResponse.redirect(redirectUrl)
+  // }
 
   if (isAuthPage && user && !pathname.includes('/callback')) {
     return NextResponse.redirect(new URL('/', request.url))
