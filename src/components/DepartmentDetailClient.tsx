@@ -587,6 +587,7 @@ export default function DepartmentDetailClient({ slug }: DepartmentDetailClientP
                       key={paper.id}
                       paper={paper}
                       index={index}
+                      isLocked={index === 0} // static lock on first paper for demo purposes
                       href={`/exam/${paper.examId}?dept=${paperTypeFilter === 'general' ? 'general' : slug}`}
                     />
                   ))
