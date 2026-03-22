@@ -64,7 +64,10 @@ export default function ExamResultClient({ examId }: ExamResultClientProps) {
         setError(null);
 
         // Fetch exam result
-        const response = await fetch(API_ENDPOINTS.EXAM_RESULT(examId));
+        const accessToken = await getSupabaseAccessToken();
+        const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined;
+
+        const response = await fetch(API_ENDPOINTS.EXAM_RESULT(examId), { headers });
         if (!response.ok) {
           throw new Error('Failed to fetch exam results');
         }
@@ -81,9 +84,6 @@ export default function ExamResultClient({ examId }: ExamResultClientProps) {
         
         if (departmentId && paperId) {
           try {
-            const accessToken = await getSupabaseAccessToken();
-            const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined;
-
             // Fetch both questions and answers in parallel
             const [questionsResponse, answersResponse] = await Promise.all([
               fetch(API_ENDPOINTS.PAPER_QUESTIONS(departmentId, paperId), { headers }),

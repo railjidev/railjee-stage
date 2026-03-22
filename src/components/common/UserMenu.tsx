@@ -64,14 +64,15 @@ export default function UserMenu({ user, navItems }: UserMenuProps) {
         <div className="w-6 sm:w-8 h-6 sm:h-8 rounded-full bg-gradient-to-r from-blue-600 to-orange-600 flex items-center justify-center text-white font-semibold text-xs sm:text-sm">
           {displayName[0].toUpperCase()}
         </div>
-        <svg
+        {/* Need to remove this in future if not needed */}
+        {/* <svg
           className={`w-3 sm:w-4 h-3 sm:h-4 text-gray-500 transition-transform ${isOpen ? 'rotate-180' : ''}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+        </svg> */}
       </button>
 
       {isOpen && (
