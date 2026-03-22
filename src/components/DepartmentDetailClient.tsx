@@ -347,7 +347,12 @@ export default function DepartmentDetailClient({ slug }: DepartmentDetailClientP
     try {
       setLoadingMaterials(true);
 
-      const response = await fetch(API_ENDPOINTS.MATERIALS(idToUse));
+      const accessToken = await getSupabaseAccessToken();
+      const materialsHeaders = accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined;
+
+      const response = await fetch(API_ENDPOINTS.MATERIALS(idToUse), {
+        headers: materialsHeaders
+      });
       
       if (!response.ok) {
         throw new Error(`Failed to fetch materials: ${response.statusText}`);

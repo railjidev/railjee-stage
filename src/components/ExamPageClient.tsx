@@ -7,7 +7,7 @@ import { ExamMode } from '@/lib/examTypes';
 import { getExamAttemptCount, getBestScore } from '@/lib/examStorage';
 import { useExamTimer, useExamData, useExamState, useExamSubmission } from '@/hooks';
 import { useNavigation } from '@/components/NavigationProvider';
-import { createClient } from '@/lib/supabase/client';
+import { createClient, getSupabaseAccessToken } from '@/lib/supabase/client';
 import LoadingScreen from './LoadingScreen';
 import ErrorScreen from './common/ErrorScreen';
 import ExamInstructions from './exam/ExamInstructions';
@@ -143,18 +143,25 @@ export default function ExamPageClient({ examId }: ExamPageClientProps) {
         isFlagged: pending.markedForReview[index] || false,
       }));
 
-      fetch(API_ENDPOINTS.SUBMIT_EXAM, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          examId: pending.activeExamId,
-          userId: resolvedUserId,
-          paperId: pending.paperId,
-          departmentId: pending.departmentId,
-          attemptedQuestions: attempted,
-          unattemptedQuestions: unattempted,
-          responses,
-        }),
+      getSupabaseAccessToken().then(accessToken => {
+        const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+        if (accessToken) {
+          headers['Authorization'] = `Bearer ${accessToken}`;
+        }
+        
+        return fetch(API_ENDPOINTS.SUBMIT_EXAM, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            examId: pending.activeExamId,
+            userId: resolvedUserId,
+            paperId: pending.paperId,
+            departmentId: pending.departmentId,
+            attemptedQuestions: attempted,
+            unattemptedQuestions: unattempted,
+            responses,
+          }),
+        });
       })
         .then((res) => {
           if (!res.ok) throw new Error('Submit failed');
@@ -264,17 +271,24 @@ export default function ExamPageClient({ examId }: ExamPageClientProps) {
       // Track exam start in background (non-blocking)
       if (exam?.paperId && exam?.departmentId && userId) {
         
-        fetch(API_ENDPOINTS.START_EXAM, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            userId,
-            paperId: exam.paperId,
-            departmentId: exam.departmentId,
-            examMode:mode,
-          }),
+        getSupabaseAccessToken().then(accessToken => {
+          const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+          if (accessToken) {
+            headers['Authorization'] = `Bearer ${accessToken}`;
+          }
+          
+          return fetch(API_ENDPOINTS.START_EXAM, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+              userId,
+              paperId: exam.paperId,
+              departmentId: exam.departmentId,
+              examMode:mode,
+            }),
+          });
         }).then(response => {
-          if (response.ok) {
+          if (response && response.ok) {
             return response.json();
           }
         }).then(startData => {
@@ -332,9 +346,15 @@ export default function ExamPageClient({ examId }: ExamPageClientProps) {
           isFlagged: examState.markedForReview[index] || false
         }));
         
+        const accessToken = await getSupabaseAccessToken();
+        const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+        if (accessToken) {
+          headers['Authorization'] = `Bearer ${accessToken}`;
+        }
+        
         const submitResponse = await fetch(API_ENDPOINTS.SUBMIT_EXAM, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers,
           body: JSON.stringify({
             examId: activeExamId,
             userId,

@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import UserMenu from '@/components/common/UserMenu';
-import NavbarMobileMenu from '@/components/home/NavbarMobileMenu';
 
 interface NavbarProps {
   user?: any;
@@ -81,8 +80,6 @@ export default function Navbar({ user }: NavbarProps) {
                 >
                   Sign Up
                 </Link>
-                {/* Hamburger only for guests — logged-in users use UserMenu */}
-                <NavbarMobileMenu navItems={navItems} />
               </>
             )}
           </div>
