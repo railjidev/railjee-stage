@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { syncUserProfile } from '@/lib/api'
+import { departmentCache } from '@/lib/departmentCache'
 import Navbar from '@/components/common/Navbar'
 import Link from 'next/link'
 
@@ -48,6 +49,7 @@ export default function SignUpPage() {
           throw new Error(createError || 'Failed to create user profile')
         }
 
+        departmentCache.clear()
         setLoading(false)
         setShowVerifyModal(true)
       }

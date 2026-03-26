@@ -172,7 +172,7 @@ export default function FilterSection({
                         }}
                         className={`w-full text-left px-2.5 sm:px-3 py-1.5 sm:py-2 text-xxs sm:text-xs hover:bg-orange-50 transition-colors ${
                           paperTypeFilter === 'sectional' && selectedPaperCode === type
-                            ? 'bg-orange-50 text-orange-700 font-medium'
+                            ? 'bg-orange-100 text-orange-700 font-medium'
                             : 'text-stone-700'
                         }`}
                       >
@@ -186,7 +186,7 @@ export default function FilterSection({
 
             {/* General Papers Dropdown - Pushed to the right on sm+, new row left-aligned on mobile */}
             {allGeneralPapers.length > 0 && (
-              <div className="relative basis-full sm:basis-auto sm:ml-auto" ref={generalDropdownRef}>
+              <div className="relative ml-auto" ref={generalDropdownRef}>
                 <button
                   onClick={() => {
                     onToggleGeneralDropdown?.();
@@ -225,7 +225,7 @@ export default function FilterSection({
                         }}
                         className={`w-full text-left px-2.5 sm:px-3 py-1.5 sm:py-2 text-xxs sm:text-xs hover:bg-amber-50 transition-colors ${
                           paperTypeFilter === 'general' && selectedPaperCode === paper
-                            ? 'bg-amber-50 text-amber-700 font-medium'
+                            ? 'bg-amber-100 text-amber-700 font-medium'
                             : 'text-stone-700'
                         }`}
                       >
