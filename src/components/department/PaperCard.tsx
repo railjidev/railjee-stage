@@ -87,15 +87,15 @@ export default function PaperCard({
         {(isLocked || paper.isNew) && (
           <div className="flex items-center gap-1.5 sm:gap-2">
             {isLocked && (
-              <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-2 py-1 rounded-full border border-[#EAB8AF] bg-[#FDF1EE] text-[#CF5D49] text-[10px] sm:text-xs font-semibold leading-none">
-                <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <span className="inline-flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border border-[#EAB8AF] bg-[#FDF1EE] text-[#CF5D49] text-[9px] sm:text-xs font-semibold leading-none">
+                <svg className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8.25 10.5V7.875a3.75 3.75 0 117.5 0V10.5m-9 0h10.5a1.5 1.5 0 011.5 1.5v6a1.5 1.5 0 01-1.5 1.5H6.75a1.5 1.5 0 01-1.5-1.5v-6a1.5 1.5 0 011.5-1.5z" />
                 </svg>
                 Locked
               </span>
             )}
             {paper.isNew && (
-              <span className="px-2.5 sm:px-3 py-1 rounded-xl text-[10px] sm:text-xs font-bold leading-none bg-orange-500 text-white">
+              <span className="px-2 py-0.5 sm:px-3 sm:py-1 rounded-xl text-[9px] sm:text-xs font-bold leading-none bg-orange-500 text-white">
                 NEW
               </span>
             )}
@@ -106,7 +106,7 @@ export default function PaperCard({
       {/* Title & Price Row */}
       <div className="flex items-start justify-between gap-2 sm:gap-3 mb-1.5 sm:mb-2">
         <h3
-          className="text-base sm:text-lg font-bold text-stone-900 leading-tight group-hover:text-orange-700 transition-colors truncate"
+          className="text-sm sm:text-lg font-bold text-stone-900 leading-tight group-hover:text-orange-700 transition-colors truncate"
           style={{ maxWidth: '100%' }}
           title={paper.name}
         >
@@ -116,7 +116,7 @@ export default function PaperCard({
           paper.isFree && ( 
             <div className="text-right flex-shrink-0">
               {/* <div className="text-[9px] sm:text-[10px] text-stone-400 line-through">₹299</div> */}
-              <div className="text-sm sm:text-base font-bold text-orange-600 border border-stone-200 bg-stone-50 px-1.5 sm:px-2 py-0.5 rounded">
+              <div className="text-[10px] sm:text-base font-bold text-orange-600 border border-stone-200 bg-stone-50 px-1 sm:px-2 py-px sm:py-0.5 rounded">
                 Free
               </div>
             </div>

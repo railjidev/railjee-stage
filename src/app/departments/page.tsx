@@ -177,18 +177,18 @@ export default function DepartmentsPage() {
                       {dept.name}
                     </h3>
                     <span
-                      className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[9px] sm:text-[10px] font-semibold uppercase tracking-wide border shadow-sm whitespace-nowrap ${
+                      className={`inline-flex items-center gap-0.5 sm:gap-1 rounded-full px-1 py-px sm:px-2 sm:py-0.5 text-[7px] sm:text-[10px] font-semibold uppercase tracking-tight sm:tracking-wide border shadow-sm whitespace-nowrap ${
                         isSubscribed
                           ? 'bg-emerald-500/90 border-emerald-300/80 text-white shadow-emerald-900/20'
                           : 'bg-white/20 border-white/30 text-white/90 backdrop-blur-sm'
                       }`}
                     >
                       {isSubscribed ? (
-                        <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-2 h-2 sm:w-2.5 sm:h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       ) : (
-                        <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <svg className="w-2 h-2 sm:w-2.5 sm:h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8 11V8.5a4 4 0 118 0V11" />
                           <rect x="5" y="11" width="14" height="10" rx="2.5" strokeWidth={1.8} />
                           <circle cx="12" cy="16" r="1" fill="currentColor" stroke="none" />

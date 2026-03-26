@@ -543,7 +543,7 @@ export default function DepartmentDetailClient({ slug }: DepartmentDetailClientP
                         }}
                         className={`w-full text-left px-4 py-2.5 text-sm hover:bg-orange-50 transition-colors ${
                           sortBy === 'date'
-                            ? 'bg-orange-50 text-orange-700 font-medium'
+                            ? 'bg-orange-100 text-orange-700 font-medium'
                             : 'text-stone-700'
                         }`}
                       >
@@ -558,7 +558,7 @@ export default function DepartmentDetailClient({ slug }: DepartmentDetailClientP
                         }}
                         className={`w-full text-left px-4 py-2.5 text-sm hover:bg-orange-50 transition-colors ${
                           sortBy === 'name'
-                            ? 'bg-orange-50 text-orange-700 font-medium'
+                            ? 'bg-orange-100 text-orange-700 font-medium'
                             : 'text-stone-700'
                         }`}
                       >
