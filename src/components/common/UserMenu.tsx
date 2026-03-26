@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
+import { departmentCache } from '@/lib/departmentCache'
 
 interface NavItem {
   name: string
@@ -52,6 +53,7 @@ export default function UserMenu({ user, navItems }: UserMenuProps) {
   async function handleSignOut() {
     setSigningOut(true)
     await supabase.auth.signOut()
+    departmentCache.clear()
     window.location.href = '/'
   }
 
@@ -59,7 +61,7 @@ export default function UserMenu({ user, navItems }: UserMenuProps) {
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-full bg-gradient-to-r from-blue-50 to-orange-50 hover:from-blue-100 hover:to-orange-100 transition-all"
+        className="flex items-center gap-1 sm:gap-2 px-2 sm:px-1 py-1.5 sm:py-1 rounded-full bg-gradient-to-r from-blue-50 to-orange-50 hover:from-blue-100 hover:to-orange-100 transition-all"
       >
         <div className="w-6 sm:w-8 h-6 sm:h-8 rounded-full bg-gradient-to-r from-blue-600 to-orange-600 flex items-center justify-center text-white font-semibold text-xs sm:text-sm">
           {displayName[0].toUpperCase()}
