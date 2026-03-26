@@ -25,7 +25,6 @@ interface PendingSubmission {
   activeExamId: string;
   paperId: string;
   departmentId: string;
-  userId: string;
   answers: (number | null)[];
   markedForReview: boolean[];
   timeRemaining: number;
@@ -124,11 +123,6 @@ export default function ExamPageClient({ examId }: ExamPageClientProps) {
       // Only process if it matches the current exam
       if (pending.examId !== examId) return;
 
-      const resolvedUserId = pending.userId || userId;
-      if (!resolvedUserId) {
-        return;
-      }
-
       // Remove immediately to prevent re-processing once we're ready to submit
       sessionStorage.removeItem(PENDING_SUBMISSION_KEY);
 
@@ -155,7 +149,6 @@ export default function ExamPageClient({ examId }: ExamPageClientProps) {
           headers,
           body: JSON.stringify({
             examId: pending.activeExamId,
-            userId: resolvedUserId,
             paperId: pending.paperId,
             departmentId: pending.departmentId,
             attemptedQuestions: attempted,
@@ -215,13 +208,12 @@ export default function ExamPageClient({ examId }: ExamPageClientProps) {
       }
 
       // Save current exam state so it can be submitted after reload
-      if (exam && activeExamId && questions.length > 0 && exam.paperId && exam.departmentId && userId) {
+      if (exam && activeExamId && questions.length > 0 && exam.paperId && exam.departmentId) {
         const pendingData: PendingSubmission = {
           examId,
           activeExamId,
           paperId: exam.paperId,
           departmentId: exam.departmentId,
-          userId,
           answers: answersRef.current,
           markedForReview: markedForReviewRef.current,
           timeRemaining: timeRemainingRef.current,
@@ -281,7 +273,6 @@ export default function ExamPageClient({ examId }: ExamPageClientProps) {
             method: 'POST',
             headers,
             body: JSON.stringify({
-              userId,
               paperId: exam.paperId,
               departmentId: exam.departmentId,
               examMode:mode,
@@ -357,7 +348,6 @@ export default function ExamPageClient({ examId }: ExamPageClientProps) {
           headers,
           body: JSON.stringify({
             examId: activeExamId,
-            userId,
             paperId: exam.paperId,
             departmentId: exam.departmentId,
             attemptedQuestions: result.totalQuestions - result.skippedQuestions,
