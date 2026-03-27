@@ -249,7 +249,8 @@ export default function DepartmentDetailClient({ slug }: DepartmentDetailClientP
             gradient: 'from-orange-600 to-red-700',
             bg: 'bg-orange-50'
           },
-          departmentId: apiDeptId
+          departmentId: apiDeptId,
+          hasAccess: currentDept?.hasAccess || false
         };
 
         if (isLoadingMore && departmentData) {
@@ -447,6 +448,8 @@ export default function DepartmentDetailClient({ slug }: DepartmentDetailClientP
             papersCount={papers.length}
             loadingMaterials={loadingMaterials}
             materialsLoaded={materialsLoaded}
+            hasAccess={department?.hasAccess}
+            slug={slug}
             onTabChange={handleTabChange}
             onPapersTabClick={handlePapersTabClick}
           />
@@ -587,7 +590,7 @@ export default function DepartmentDetailClient({ slug }: DepartmentDetailClientP
                       index={index}
                       isLocked={!paper.hasAccess}
                       departmentName={department?.name}
-                      upgradeHref={`/subscription?dept=${slug}`}
+                      upgradeHref={`/subscription?dept=${slug}&from=/departments/${slug}`}
                       href={`/exam/${paper.examId}?dept=${paperTypeFilter === 'general' ? 'general' : slug}`}
                     />
                   ))

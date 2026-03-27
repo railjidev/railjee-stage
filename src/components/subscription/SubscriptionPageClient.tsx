@@ -43,6 +43,7 @@ function formatAmount(value: number): string {
 export default function SubscriptionPageClient() {
   const searchParams = useSearchParams();
   const preselectedDept = searchParams.get('dept')?.trim() ?? '';
+  const backHref = searchParams.get('from') ?? '/departments';
 
   const [departments, setDepartments] = useState<DepartmentOption[]>([]);
   const [selectedDepartmentId, setSelectedDepartmentId] = useState<string>('');
@@ -125,7 +126,7 @@ export default function SubscriptionPageClient() {
         variant="departments"
         title="Subscription Plans"
         subtitle="Select a plan for one department"
-        backHref="/departments"
+        backHref={backHref}
       />
 
       {/* Sticky bottom bar — mobile only, shown when a dept is selected */}
@@ -272,7 +273,7 @@ export default function SubscriptionPageClient() {
             </p>
 
             <Link
-              href="/departments"
+              href={backHref}
               className="mt-4 inline-flex items-center text-xs sm:text-sm text-orange-300 hover:text-orange-200"
             >
               Back to departments

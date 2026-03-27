@@ -76,6 +76,7 @@ export default function SignUpPage() {
     setGoogleLoading(true)
     setError('')
     try {
+      departmentCache.clear()
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {

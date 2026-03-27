@@ -48,7 +48,7 @@ export default function ContactForm() {
 
   if (status === 'success') {
     return (
-      <div className="bg-green-50 border border-green-200 rounded-2xl p-8 text-center">
+      <div className="bg-green-50 border-2 border-green-300 rounded-2xl p-8 text-center shadow-lg">
         <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-green-100 mb-4">
           <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -69,6 +69,7 @@ export default function ContactForm() {
   }
 
   return (
+    <div className="rounded-2xl border-2 border-orange-200 bg-white shadow-[0_4px_32px_0_rgba(234,88,12,0.08)] p-6 sm:p-8">
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
@@ -174,6 +175,7 @@ export default function ContactForm() {
         By submitting this form, you agree to our{' '}
         <Link href="/privacy-policy" className="underline decoration-dotted hover:text-stone-600 transition-colors">Privacy Policy</Link>.
       </p>
-    </form>
+      </form>
+    </div>
   );
 }

@@ -78,6 +78,7 @@ export interface DepartmentInfo {
   color: DepartmentColor;
   paperCount?: number;
   materialCount?: number;
+  hasAccess?: boolean;
 }
 
 export interface DepartmentData {
