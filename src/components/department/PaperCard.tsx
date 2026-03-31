@@ -44,20 +44,20 @@ export default function PaperCard({
         }`}
       >
         {isLocked ? (
-          <div className="flex flex-col items-center justify-center text-center transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 w-full px-4">
-            <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-white flex items-center justify-center shadow-[0_8px_24px_rgba(207,93,69,0.15)] mb-3">
-              <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#CF5D49]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <div className="flex flex-col items-center justify-center text-center transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 w-full px-3 sm:px-4">
+            <div className="w-9 h-9 sm:w-14 sm:h-14 rounded-full bg-white flex items-center justify-center shadow-[0_8px_24px_rgba(207,93,69,0.15)] mb-2 sm:mb-3">
+              <svg className="w-5 h-5 sm:w-7 sm:h-7 text-[#CF5D49]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
               </svg>
             </div>
-            <h4 className="text-stone-900 text-lg font-bold tracking-tight mb-1.5">
+            <h4 className="text-stone-900 text-sm sm:text-lg font-bold tracking-tight mb-1 sm:mb-1.5">
               Subscribe to Attempt
             </h4>
-            <p className="text-stone-500 text-xs mb-4">
+            <p className="text-stone-500 text-[10px] sm:text-xs mb-2.5 sm:mb-4 leading-snug">
               {requiredPlanCopy}
             </p>
-            <div className="inline-flex items-center gap-1.5 rounded-full px-6 py-2.5 sm:px-7 sm:py-3 bg-gradient-to-r from-[#D75C37] to-[#DF7F2D] text-white font-semibold text-sm shadow-[0_8px_20px_rgba(215,92,55,0.3)]">
-               <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm0 2h14v2H5v-2z"/></svg>
+            <div className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 sm:px-7 sm:py-3 bg-gradient-to-r from-[#D75C37] to-[#DF7F2D] text-white font-semibold text-xs sm:text-sm shadow-[0_8px_20px_rgba(215,92,55,0.3)]">
+               <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm0 2h14v2H5v-2z"/></svg>
               <span>Upgrade Plan</span>
             </div>
           </div>

@@ -197,7 +197,7 @@ export default function DepartmentsPage() {
                       {isSubscribed ? 'Subscribed' : 'Preview'}
                     </span>
                   </div>
-                  <p className="text-white/70 text-xxs sm:text-xs line-clamp-2 sm:block">
+                  <p className="text-white/70 text-xxs sm:text-xs line-clamp-2">
                     {dept.description}
                   </p>
                 </div>
