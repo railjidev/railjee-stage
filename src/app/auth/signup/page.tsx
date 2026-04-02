@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { syncUserProfile } from '@/lib/api'
+import { createUser } from '@/lib/api'
 import Navbar from '@/components/common/Navbar'
 import Link from 'next/link'
 
@@ -38,7 +38,7 @@ export default function SignUpPage() {
 
       // 2. Create user profile via backend API
       if (data.user) {
-        const { success, error: createError } = await syncUserProfile({
+        const { success, error: createError } = await createUser({
           supabaseId: data.user.id,
           email: data.user.email!,
           username: name,
@@ -52,20 +52,8 @@ export default function SignUpPage() {
         setShowVerifyModal(true)
       }
     } catch (error: any) {
-      const rawMessage = error?.message || ''
-      const normalizedMessage = rawMessage.toLowerCase()
-      const isExistingUserMessage =
-        normalizedMessage.includes('already exists') ||
-        normalizedMessage.includes('user already') ||
-        normalizedMessage.includes('duplicate')
-
-      setError(
-        isExistingUserMessage
-          ? 'User already exists'
-          : 'Some error occurred during sign up please contact support'
-      )
+      setError(error.message || 'An error occurred during sign up')
       setLoading(false)
-      console.error('Sign up error:', rawMessage)
     }
   }
 

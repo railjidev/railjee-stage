@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { API_ENDPOINTS } from '@/lib/apiConfig';
 import { Question } from '@/lib/types';
-import { getSupabaseAccessToken } from '@/lib/supabase/client';
 import LoadingScreen from './LoadingScreen';
 import ErrorScreen from './common/ErrorScreen';
 import QuestionReview from './QuestionReview';
@@ -81,13 +80,10 @@ export default function ExamResultClient({ examId }: ExamResultClientProps) {
         
         if (departmentId && paperId) {
           try {
-            const accessToken = await getSupabaseAccessToken();
-            const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined;
-
             // Fetch both questions and answers in parallel
             const [questionsResponse, answersResponse] = await Promise.all([
-              fetch(API_ENDPOINTS.PAPER_QUESTIONS(departmentId, paperId), { headers }),
-              fetch(API_ENDPOINTS.PAPER_ANSWERS(departmentId, paperId), { headers })
+              fetch(API_ENDPOINTS.PAPER_QUESTIONS(departmentId, paperId)),
+              fetch(API_ENDPOINTS.PAPER_ANSWERS(departmentId, paperId))
             ]);
             
             if (questionsResponse.ok && answersResponse.ok) {

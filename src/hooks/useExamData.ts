@@ -4,7 +4,6 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { API_ENDPOINTS } from '@/lib/apiConfig';
 import { Question, Exam } from '@/lib/types';
 import { departmentCache } from '@/lib/departmentCache';
-import { getSupabaseAccessToken } from '@/lib/supabase/client';
 
 interface UseExamDataProps {
   examId: string;
@@ -38,11 +37,6 @@ export function useExamData({ examId, deptSlug }: UseExamDataProps): UseExamData
   
   const questionsCache = useRef<Question[]>([]);
   const hasFetchedExam = useRef(false);
-
-  const getAuthHeaders = useCallback(async (): Promise<HeadersInit | undefined> => {
-    const accessToken = await getSupabaseAccessToken();
-    return accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined;
-  }, []);
 
   // Transform API question format to our format
   const transformQuestions = useCallback((apiQuestions: any[]): Question[] => {
@@ -100,8 +94,7 @@ export function useExamData({ examId, deptSlug }: UseExamDataProps): UseExamData
   const fetchPaperAndQuestions = useCallback(async (departmentId: string): Promise<{ paper: any; departmentId: string } | null> => {
     try {
       setQuestionsLoading(true);
-      const headers = await getAuthHeaders();
-      const response = await fetch(API_ENDPOINTS.PAPER_QUESTIONS(departmentId, examId), { headers });
+      const response = await fetch(API_ENDPOINTS.PAPER_QUESTIONS(departmentId, examId));
       if (!response.ok) return null;
 
       const data = await response.json();
@@ -120,7 +113,7 @@ export function useExamData({ examId, deptSlug }: UseExamDataProps): UseExamData
     } finally {
       setQuestionsLoading(false);
     }
-  }, [examId, getAuthHeaders, transformQuestions]);
+  }, [examId, transformQuestions]);
 
   // Search all departments for the paper (fallback)
   const searchAllDepartments = useCallback(async (): Promise<{ paper: any; departmentId: string } | null> => {
@@ -162,8 +155,7 @@ export function useExamData({ examId, deptSlug }: UseExamDataProps): UseExamData
 
     setQuestionsLoading(true);
     try {
-      const headers = await getAuthHeaders();
-      const response = await fetch(API_ENDPOINTS.PAPER_QUESTIONS(exam.departmentId, exam.paperId), { headers });
+      const response = await fetch(API_ENDPOINTS.PAPER_QUESTIONS(exam.departmentId, exam.paperId));
       if (!response.ok) throw new Error('Failed to load questions');
 
       const data = await response.json();
@@ -176,7 +168,7 @@ export function useExamData({ examId, deptSlug }: UseExamDataProps): UseExamData
     } finally {
       setQuestionsLoading(false);
     }
-  }, [exam, getAuthHeaders, questionsPrefetched, transformQuestions]);
+  }, [exam, questionsPrefetched, transformQuestions]);
 
   // Fetch practice mode answers
   const fetchPracticeAnswers = useCallback(async (): Promise<Map<number, number>> => {
@@ -185,8 +177,7 @@ export function useExamData({ examId, deptSlug }: UseExamDataProps): UseExamData
     }
 
     try {
-      const headers = await getAuthHeaders();
-      const response = await fetch(API_ENDPOINTS.PAPER_ANSWERS(exam.departmentId, exam.paperId), { headers });
+      const response = await fetch(API_ENDPOINTS.PAPER_ANSWERS(exam.departmentId, exam.paperId));
       if (!response.ok) return new Map();
 
       const data = await response.json();
@@ -202,7 +193,7 @@ export function useExamData({ examId, deptSlug }: UseExamDataProps): UseExamData
     }
 
     return new Map();
-  }, [exam, getAuthHeaders]);
+  }, [exam]);
 
   // Fetch exam details on mount
   useEffect(() => {
