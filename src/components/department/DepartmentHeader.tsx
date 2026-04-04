@@ -22,11 +22,13 @@ export default function DepartmentHeader() {
     <header className="pt-3 sm:pt-4 lg:pt-5 pb-2 sm:pb-3 px-3 sm:px-4 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between gap-3 sm:gap-4">
+          <div className="flex items-center gap-2">
           <Link href="/departments" className="p-1 sm:p-1.5 hover:bg-stone-200 rounded-lg transition-all">
             <svg className="w-5 h-5 lg:w-6 lg:h-6 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
           </Link>
+          </div>
           <div className="flex items-center gap-3 sm:gap-4">
             {user && <UserMenu user={user} />}
             <Link href="/" className="transition-transform hover:scale-105">

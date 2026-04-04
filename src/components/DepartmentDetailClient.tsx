@@ -36,6 +36,8 @@ export default function DepartmentDetailClient({ slug }: DepartmentDetailClientP
   const [selectedMaterial, setSelectedMaterial] = useState<Material | null>(null);
   const [showOthersDropdown, setShowOthersDropdown] = useState(false);
   const [showGeneralDropdown, setShowGeneralDropdown] = useState(false);
+  const [selectedDesignation, setSelectedDesignation] = useState<string>('');
+  const [designations, setDesignations] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<'name' | 'date'>('date');
   const [showSortDropdown, setShowSortDropdown] = useState(false);
   const sortDropdownRef = useRef<HTMLDivElement>(null);
@@ -177,6 +179,11 @@ export default function DepartmentDetailClient({ slug }: DepartmentDetailClientP
           // Full paper (Previous Year): complete papers
           papersUrl += `?paperType=full&page=${page}&sortBy=${apiSortBy}&sortOrder=${sortOrder}`;
         }
+
+        // Add designation filter if selected
+        if (selectedDesignation) {
+          papersUrl += `&designation=${encodeURIComponent(selectedDesignation)}`;
+        }
         
         // Fetch papers from external API
         const papersData = await apiFetch(papersUrl, { signal });
@@ -186,6 +193,14 @@ export default function DepartmentDetailClient({ slug }: DepartmentDetailClientP
         const paperCodes = metadata.paperCodes || { general: [], nonGeneral: [] };
         const generalFilters = paperCodes.general || [];
         const mainFilters = paperCodes.nonGeneral || [];
+
+        // Extract designations from metadata
+        const designationsList: string[] = metadata.designations || [];
+        setDesignations(designationsList);
+        // Auto-select the first designation if none is selected yet
+        if (designationsList.length > 0) {
+          setSelectedDesignation(prev => prev || designationsList[0]);
+        }
 
         const cachedGeneralDeptId = departmentCache.getGeneralDeptId();
         
@@ -294,7 +309,7 @@ export default function DepartmentDetailClient({ slug }: DepartmentDetailClientP
 
     fetchDepartmentData();
     return () => abortController.abort();
-  }, [slug, paperTypeFilter, selectedPaperCode, page, sortBy]);
+  }, [slug, paperTypeFilter, selectedPaperCode, page, sortBy, selectedDesignation]);
 
   // Infinite scroll observer
   useEffect(() => {
@@ -431,6 +446,14 @@ export default function DepartmentDetailClient({ slug }: DepartmentDetailClientP
     setHasMore(true);
   };
 
+  const handleDesignationSelect = (designation: string) => {
+    setSelectedDesignation(designation);
+    setPaperTypeFilter('full');
+    setSelectedPaperCode('');
+    setPage(1);
+    setHasMore(true);
+  };
+
   return (
     <div className="min-h-screen bg-[#faf9f7]">
       <DepartmentHeader />
@@ -439,6 +462,7 @@ export default function DepartmentDetailClient({ slug }: DepartmentDetailClientP
         department={department}
         activeTab={activeTab}
         filteredCount={activeTab === 'papers' ? totalPapersCount : filteredMaterials.length}
+        slug={slug}
       />
 
       <div className="px-3 sm:px-4 lg:px-8 pb-4 sm:pb-6 lg:pb-8">
@@ -452,6 +476,9 @@ export default function DepartmentDetailClient({ slug }: DepartmentDetailClientP
             slug={slug}
             onTabChange={handleTabChange}
             onPapersTabClick={handlePapersTabClick}
+            designations={designations}
+            selectedDesignation={selectedDesignation}
+            onDesignationSelect={handleDesignationSelect}
           />
         </div>
       </div>
