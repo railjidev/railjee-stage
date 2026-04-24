@@ -25,7 +25,8 @@ export const API_ENDPOINTS = {
   USER_EXAM_ATTEMPTS_BY_DEPT: (userId: string, deptId: string) => `${API_BASE_URL}/business/v1/stats/user/${userId}/exams?departmentId=${deptId}`,
 
   // Payment Plans API
-  PAYMENT_PLANS: `${API_BASE_URL}/business/v1/payments/plans`
+  PAYMENT_PLANS: `${API_BASE_URL}/business/v1/payments/plans`,
+  PAYMENT_ORDER: `${API_BASE_URL}/business/v1/payments/order`
 } as const;
 
 export default API_ENDPOINTS;
