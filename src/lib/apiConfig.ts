@@ -26,7 +26,8 @@ export const API_ENDPOINTS = {
 
   // Payment Plans API
   PAYMENT_PLANS: `${API_BASE_URL}/business/v1/payments/plans`,
-  PAYMENT_ORDER: `${API_BASE_URL}/business/v1/payments/order`
+  PAYMENT_ORDER: `${API_BASE_URL}/business/v1/payments/order`,
+  PAYMENT_VERIFY: `${API_BASE_URL}/business/v1/payments/verify`
 } as const;
 
 export default API_ENDPOINTS;

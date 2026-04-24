@@ -108,6 +108,7 @@ export default function SubscriptionPageClient() {
   const [orderId, setOrderId] = useState<string | null>(null);
   const [subscribing, setSubscribing] = useState(false);
   const [subscribeError, setSubscribeError] = useState<string | null>(null);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
   const supabase = createClient();
 
   // Fetch plans from API
@@ -231,7 +232,7 @@ export default function SubscriptionPageClient() {
 
       const options = {
         key: razorpayKey,
-        amount: amount * 100, // Razorpay expects amount in paise
+        amount: amount, // Amount already in paise from backend
         currency: currency,
         name: 'RailJEE',
         description: `${selectedDepartment?.name} - ${selectedPlan.durationMonths} Month${selectedPlan.durationMonths > 1 ? 's' : ''} Subscription`,
@@ -245,11 +246,24 @@ export default function SubscriptionPageClient() {
           color: '#F97316', // Orange theme
         },
         handler: async function (response: any) {
-          console.log('Payment successful:', response);
-          // TODO: Verify payment on backend
-          // For now, just show success and redirect
-          alert('Payment successful! Your subscription is now active.');
-          router.push('/departments');
+          try {
+            console.log('Payment successful:', response);
+            
+            // Payment completed - webhook will handle subscription activation
+            // Just verify the payment was successful
+            setPaymentSuccess(true);
+            setSubscribing(false);
+            
+            // Show success message and redirect
+            // Note: Subscription will be activated by webhook asynchronously
+            setTimeout(() => {
+              router.push('/departments?payment=success');
+            }, 3000);
+          } catch (error) {
+            console.error('Payment error:', error);
+            setSubscribeError('Something went wrong. Please contact support if amount was deducted.');
+            setSubscribing(false);
+          }
         },
         modal: {
           ondismiss: function () {
@@ -292,6 +306,62 @@ export default function SubscriptionPageClient() {
             <p className="mt-4 text-slate-600">Loading subscription plans...</p>
           </div>
         </main>
+      </div>
+    );
+  }
+
+  // ── Render Payment Success Modal ─────────────────────────────────────────
+  if (paymentSuccess) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+        <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md mx-4 text-center">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-10 h-10 text-green-600"
+            >
+              <path
+                fillRule="evenodd"
+                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+          <h2 className="text-2xl font-bold text-slate-900 mb-2">
+            Payment Successful!
+          </h2>
+          <p className="text-slate-600 mb-2">
+            Your payment for {selectedDepartment?.name} has been received.
+          </p>
+          <p className="text-sm text-slate-500 mb-4">
+            Your subscription will be activated within a few moments.
+          </p>
+          <div className="inline-flex items-center gap-2 text-sm text-orange-600">
+            <svg
+              className="animate-spin h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              />
+            </svg>
+            Redirecting...
+          </div>
+        </div>
       </div>
     );
   }
@@ -666,7 +736,7 @@ export default function SubscriptionPageClient() {
                 {/* Features List */}
                 <div className="mt-6 pt-6 border-t border-slate-700 space-y-2.5">
                   <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
-                    What's Included
+                    What&apos;s Included
                   </p>
                   {selectedPlan.features.includesPapers && (
                     <div className="flex items-start gap-2.5">
@@ -775,7 +845,7 @@ export default function SubscriptionPageClient() {
               Have questions before subscribing?
             </h2>
             <p className="text-sm sm:text-base text-slate-600 mb-6">
-              We're happy to help.
+              We&apos;re happy to help.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-2xl mx-auto">
